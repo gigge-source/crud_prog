@@ -1,24 +1,32 @@
 package ru.kata.spring.boot_security.demo.service;
 
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.kata.spring.boot_security.demo.dao.UserDao;
 import ru.kata.spring.boot_security.demo.model.User;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
-    private UserDao userDao;
+    private final UserDao userDao;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserDao userDao) {
+    public UserServiceImpl(UserDao userDao, PasswordEncoder passwordEncoder) {
         this.userDao = userDao;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return null;
+    }
+
+    @Transactional
+    public List<User> getAllUsers(Long id) {
+        return userDao.findAll();
     }
 
     @Override
@@ -48,7 +56,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void saveUser(String name, String surname, Long age, String email) {
-
+        //userDao.save(user);
     }
 
     @Override

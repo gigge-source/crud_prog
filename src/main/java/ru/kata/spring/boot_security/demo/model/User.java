@@ -64,7 +64,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return "";
+        return email;
     }
 
     @Override
@@ -84,5 +84,9 @@ public class User implements UserDetails {
     }
     public boolean isEnabled() {
         return true;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }
